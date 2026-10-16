@@ -1,0 +1,7 @@
+REM rickroll script
+DELAY 1000
+ALT F2
+DELAY 100
+STRING bash -c 'cvlc -f --no-video-title-show https://bit.ly/482U5CA vlc://quit'
+DELAY 20
+ENTER
