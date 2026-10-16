@@ -4,32 +4,36 @@ I'm not sure what this does: encoder.jar
 Ducky Code to .ino translator: duck2spark3.py
 
 	Programming Instructions:
-Step 0: download and configure arduino-ide
+Step 1: download and configure arduino-ide
 	visit
 https://sourceforge.net/projects/arduino-ide.mirror/files/2.3.10/arduino-ide_2.3.10_Linux_64bit.AppImage/download
-	and download the app image. Run it and update if necessary
+	and download the app image to the Software folder. Run it and update if necessary, then follow instructions below to configure it.
 
 	Add the board manager we need to use by pressing CTRL + , or going to File->Preferences. Find 'Additional Board Manager URLs" at the bottom and paste this link:
 	https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
 	Go to the Board manager on the left and search for "Digistump AVR Boards" and install it. Then go to Tools->Board->Digistump AVR Boards and select DigiSpark from the dropdown. Finally, go to Tools->Programmer and select "micronucleus.2.5" from the dropdown.
 
-Step 1: design .duck script
+Step 2: design .duck script, or move any .duck script into the Software folder 
 	echo -e "REM example\nDELAY 1000\nSTRING Did I type this?" > example.duck
-Step 2: encode as binary
-	java -jar encoder.jar -i script.duck -o script_raw.bin
 
-Step 3: translate binary .duck script to .ino
-	./duck2spark3.py -i script_raw.bin -f 1 -o raw.ino
+Step 3: Run ./compile&execute.sh (chmod u+x if necessary)
+	This runs the following process on the .duck:
+	Step 1: encode as binary
+		java -jar encoder.jar -i script.duck -o script_raw.bin
 
-Step 4: make working directory for Arduino IDE to use and move .ino
-	mkdir raw; mv raw.ino raw;
+	Step 2: translate binary .duck script to .ino
+		./duck2spark3.py -i script_raw.bin -f 1 -o raw.ino
 
-Step 5: run Arduino IDE with .ino as input file
-	./arduino-ide_2.3.10_Linux_64bit.AppImage ./raw/raw.ino
+	Step 3: make working directory for Arduino IDE to use and move .ino
+		mkdir raw; mv raw.ino raw;
 
-Step 6: cleanup intermediary files, keeping the easily edited .duck
-	rm -r raw/ script_raw.bin	
+	Step 4: run Arduino IDE with .ino as input file
+		./arduino-ide_2.3.10_Linux_64bit.AppImage ./raw/raw.ino
 
-This is automated by complile&execute.sh, which takes the .duck filename and runs it through all these steps. 
+	Step 5: cleanup intermediary files, keeping the .duck
+		rm -r raw/ script_raw.bin	
+Step 4: Install script to the Digispark
+	Click the '->' arrow in the top-left corner to begin upload. You now have 60s to plug in the Digispark Arduino so it can be programmed. Once it is programmed remove it and it will execute the script next time you plug it into any computer. If you did not set a sufficient delay it may execute immediately, so be careful what you put on there.
+
 Note that complile&execute.sh is expecting arduino-ide*.AppImage, duck2spark3.py, and encoder.jar to all exist in the folder where it is run.

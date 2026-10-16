@@ -1,0 +1,7 @@
+REM rickroll script
+DELAY 1000
+ALT F2
+DELAY 250
+STRING bash -c 'curl -L -o ~/Downloads/RR.mp4 "https://raw.githubusercontent.com/JamesOmega36/Ducky-Scripts/main/Rick%20Roll/Resources/RR.mp4" && vlc --fullscreen --no-video-title-show --qt-minimal-view ~/Downloads/RR.mp4 && (sleep 17 && rm -f ~/Downloads/RR.mp4) &'
+DELAY 50
+ENTER
