@@ -1,0 +1,5 @@
+REM rickroll script
+DELAY 1000
+ALT F2
+DELAY 250
+STRING bash -c "xdg-open ~/RR.mp4"
