@@ -1,0 +1,1 @@
+name="$1"; java -jar encoder.jar -i $name -o script_raw.bin; ./duck2spark3.py -i script_raw.bin -f 0 -o raw.ino; mkdir -p raw; mv raw.ino raw; ./arduino-ide_2.3.10_Linux_64bit.AppImage ./raw/raw.ino; rm -r raw script_raw.bin
